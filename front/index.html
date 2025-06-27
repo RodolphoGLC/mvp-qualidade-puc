@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <title>AI Wine System</title>
+    <link rel="icon" href="img/home_logo.jpeg" type="image/png" />
+  </head>
+  <body>
+    <!-- Cabeçalho de informações do sistema -->
+    <header>
+      <div class="title">
+        <h2>Bem-Vindo ao AI Wine System</h2>
+        <br />
+        <p>
+          Este sistema foi desenvolvido para auxiliar na previsão e cadastro de
+          qualidade de vinhos.
+        </p>
+        <p>
+          Para isso, basta preencher os campos abaixo com as características do
+          vinho e clicar em "Avaliar".
+        </p>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <!-- Opções para adicionar um novo vinho -->
+      <section class="newItem">
+        <input type="text" id="newFixedAcidity" placeholder="Fixed Acidity" />
+        <input
+          type="text"
+          id="newVolatileAcidity"
+          placeholder="Volatile Acidity"
+        />
+        <input type="text" id="newCitricAcid" placeholder="Citric Acid" />
+        <input type="text" id="newResidualSugar" placeholder="Residual Sugar" />
+        <input type="text" id="newChlorides" placeholder="Chlorides" />
+        <input type="text" id="newFreeSulfurDioxide" placeholder="Free SO2" />
+        <input type="text" id="newTotalSulfurDioxide" placeholder="Total SO2" />
+        <input type="text" id="newDensity" placeholder="Density" />
+        <input type="text" id="newPh" placeholder="pH" />
+        <input type="text" id="newSulphates" placeholder="Sulphates" />
+        <input type="text" id="newAlcohol" placeholder="Alcohol" />
+        <button type="button" onclick="newItem(event)" class="addBtn"> Avaliar </button>
+
+        <button type="button" onclick="fillTestData()" class="addBtn" style="background-color: #4caf50; margin-left: 8px;">Preencher Teste</button>
+      </section>
+
+      <!-- Tabela com vinhos existentes -->
+      <section class="items">
+        <div class="table-container">
+          <table id="myTable">
+            <tr>
+              <th>Id</th>
+              <th>Fixed Acidity</th>
+              <th>Volatile Acidity</th>
+              <th>Citric Acid</th>
+              <th>Residual Sugar</th>
+              <th>Chlorides</th>
+              <th>Free SO2</th>
+              <th>Total SO2</th>
+              <th>Density</th>
+              <th>pH</th>
+              <th>Sulphates</th>
+              <th>Alcohol</th>
+              <th>Quality</th>
+              <th>
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/126/126468.png"
+                  width="15"
+                  height="15"
+                />
+              </th>
+            </tr>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
