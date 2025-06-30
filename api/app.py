@@ -73,7 +73,7 @@ def add_vinho(form: VinhoSchema):
     model_path = './MachineLearning/pipelines/pipeline_wine_svm.pkl'
     modelo = pipeline.carrega_pipeline(model_path)
 
-    # Realizando predição de quality (se fizer sentido, ou pode ser só cadastro)
+    # Realizando predição de quality
     quality = int(modelo.predict(X_input)[0])
 
     vinho = Vinho(

@@ -18,19 +18,19 @@ class VinhoSchema(BaseModel):
 
 class VinhoViewSchema(BaseModel):
     """ Define como um vinho será retornado """
-    id: int = 1
-    fixed_acidity: float = 7.4
-    volatile_acidity: float = 0.70
-    citric_acid: float = 0.0
-    residual_sugar: float = 1.9
-    chlorides: float = 0.076
-    free_sulfur_dioxide: float = 11.0
-    total_sulfur_dioxide: float = 34.0
-    density: float = 0.9978
-    pH: float = 3.51
-    sulphates: float = 0.56
-    alcohol: float = 9.4
-    quality: int = 5
+    id: int
+    fixed_acidity: float 
+    volatile_acidity: float 
+    citric_acid: float 
+    residual_sugar: float 
+    chlorides: float
+    free_sulfur_dioxide: float
+    total_sulfur_dioxide: float
+    density: float
+    pH: float
+    sulphates: float
+    alcohol: float
+    quality: int
 
 class VinhoBuscaSchema(BaseModel):
     """ Define como representar a busca de um vinho (usando id) """
