@@ -10,6 +10,7 @@ from model.pipeline import Pipeline
 from model.preprocessador import PreProcessadorVinho
 from model.avaliador import Avaliador
 from model.carregador import Carregador
+from model.vinho import Vinho
 
 db_path = "database/"
 # Verifica se o diretorio não existe

@@ -1,20 +1,20 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List
 from model.vinho import Vinho
 
 class VinhoSchema(BaseModel):
     """ Define como um novo vinho a ser inserido deve ser representado """
-    fixed_acidity: float = 7.4
-    volatile_acidity: float = 0.70
-    citric_acid: float = 0.0
-    residual_sugar: float = 1.9
-    chlorides: float = 0.076
-    free_sulfur_dioxide: float = 11.0
-    total_sulfur_dioxide: float = 34.0
-    density: float = 0.9978
-    pH: float = 3.51
-    sulphates: float = 0.56
-    alcohol: float = 9.4
+    fixed_acidity: float = Field(..., example=7.4)
+    volatile_acidity: float = Field(..., example=0.7)
+    citric_acid: float = Field(..., example=0.0)
+    residual_sugar: float = Field(..., example=1.9)
+    chlorides: float = Field(..., example=0.076)
+    free_sulfur_dioxide: float = Field(..., example=11.0)
+    total_sulfur_dioxide: float = Field(..., example=34.0)
+    density: float = Field(..., example=0.9978)
+    pH: float = Field(..., example=3.51)
+    sulphates: float = Field(..., example=0.56)
+    alcohol: float = Field(..., example=9.4)
 
 class VinhoViewSchema(BaseModel):
     """ Define como um vinho será retornado """
@@ -34,7 +34,7 @@ class VinhoViewSchema(BaseModel):
 
 class VinhoBuscaSchema(BaseModel):
     """ Define como representar a busca de um vinho (usando id) """
-    id: int = 1
+    id: int
 
 class ListaVinhosSchema(BaseModel):
     """ Define como representar uma coleção de vinhos """
@@ -42,7 +42,7 @@ class ListaVinhosSchema(BaseModel):
 
 class VinhoDelSchema(BaseModel):
     """ Define como representar a remoção de um vinho """
-    id: int = 1
+    id: int
 
 
 # Funções auxiliares para representar dados no retorno

@@ -3,7 +3,7 @@ from model.vinho import Vinho
 from schemas import apresenta_vinhos, apresenta_vinhos
 
 from flask_openapi3 import OpenAPI, Info, Tag
-from flask import redirect
+from flask import redirect, jsonify
 
 from sqlalchemy.exc import IntegrityError
 
@@ -64,18 +64,20 @@ def add_vinho(form: VinhoSchema):
     """Adiciona um novo vinho à base de dados"""
 
     preprocessador = PreProcessadorVinho()
-    pipeline = Pipeline()
+    pipeline_loader = Pipeline()  # sua classe personalizada de pipeline
 
     # Preparando os dados para o modelo
     X_input = preprocessador.preparar_form(form)
 
     # Carregando modelo
     model_path = './MachineLearning/pipelines/pipeline_wine_svm.pkl'
-    modelo = pipeline.carrega_pipeline(model_path)
+    modelo = pipeline_loader.carrega_pipeline(model_path)
 
     # Realizando predição de quality
     quality = int(modelo.predict(X_input)[0])
 
+    print(form)
+    # Criando o objeto Vinho
     vinho = Vinho(
         fixed_acidity=form.fixed_acidity,
         volatile_acidity=form.volatile_acidity,
@@ -91,13 +93,10 @@ def add_vinho(form: VinhoSchema):
         quality=quality
     )
 
-    logger.error("Vinho", vinho)
-
     logger.debug(f"Adicionando vinho com qualidade prevista: {quality}")
 
     try:
         session = Session()
-
         session.add(vinho)
         session.commit()
 

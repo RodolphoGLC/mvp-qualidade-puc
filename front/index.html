@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
     <title>AI Wine System</title>
     <link rel="icon" href="img/home_logo.jpeg" type="image/png" />
@@ -14,40 +18,25 @@
     <!-- Cabeçalho de informações do sistema -->
     <header>
       <div class="title">
-        <h2>Bem-Vindo ao AI Wine System</h2>
-        <br />
-        <p>
-          Este sistema foi desenvolvido para auxiliar na previsão e cadastro de
-          qualidade de vinhos.
-        </p>
-        <p>
-          Para isso, basta preencher os campos abaixo com as características do
-          vinho e clicar em "Avaliar".
-        </p>
+        <h2>AI Wine System</h2>
       </div>
     </header>
 
     <div class="main-container">
-      <!-- Opções para adicionar um novo vinho -->
-      <section class="newItem">
-        <input type="text" id="newFixedAcidity" placeholder="Fixed Acidity" />
-        <input
-          type="text"
-          id="newVolatileAcidity"
-          placeholder="Volatile Acidity"
-        />
-        <input type="text" id="newCitricAcid" placeholder="Citric Acid" />
-        <input type="text" id="newResidualSugar" placeholder="Residual Sugar" />
-        <input type="text" id="newChlorides" placeholder="Chlorides" />
-        <input type="text" id="newFreeSulfurDioxide" placeholder="Free SO2" />
-        <input type="text" id="newTotalSulfurDioxide" placeholder="Total SO2" />
-        <input type="text" id="newDensity" placeholder="Density" />
-        <input type="text" id="newPh" placeholder="pH" />
-        <input type="text" id="newSulphates" placeholder="Sulphates" />
-        <input type="text" id="newAlcohol" placeholder="Alcohol" />
-        <button type="button" onclick="newItem(event)" class="addBtn"> Avaliar </button>
-
-        <button type="button" onclick="fillTestData()" class="addBtn" style="background-color: #4caf50; margin-left: 8px;">Preencher Teste</button>
+      <section class="register-button">
+        <div class="register-text">
+          <p>Deseja cadastrar um novo vinho?</p>
+          <p class="subtitle">
+            Clique no botão ao lado para avaliar as propriedades.
+          </p>
+        </div>
+        <button
+          class="button-task"
+          id="open-register"
+          onclick='showModal("register")'
+        >
+          Avaliar Vinho
+        </button>
       </section>
 
       <!-- Tabela com vinhos existentes -->
@@ -68,17 +57,63 @@
               <th>Sulphates</th>
               <th>Alcohol</th>
               <th>Quality</th>
-              <th>
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/126/126468.png"
-                  width="15"
-                  height="15"
-                />
-              </th>
+              <th>Delete</th>
             </tr>
           </table>
         </div>
       </section>
+
+      <!-- Modal Registro  -->
+      <dialog id="register-modal" class="modal-content">
+        <button class="close-button" onclick='closeModal("register")'>
+          &times;
+        </button>
+        <h2>
+          <i
+            class="fas fa-wine-glass-alt"
+            style="color: #6a1b1b; margin-right: 8px"
+          ></i>
+          Registrar novo vinho
+        </h2>
+        <form id="register-form" onsubmit="newItem(event)">
+          <input type="text" id="newFixedAcidity" placeholder="Fixed Acidity" />
+          <input
+            type="text"
+            id="newVolatileAcidity"
+            placeholder="Volatile Acidity"
+          />
+          <input type="text" id="newCitricAcid" placeholder="Citric Acid" />
+          <input
+            type="text"
+            id="newResidualSugar"
+            placeholder="Residual Sugar"
+          />
+          <input type="text" id="newChlorides" placeholder="Chlorides" />
+          <input type="text" id="newFreeSulfurDioxide" placeholder="Free SO2" />
+          <input
+            type="text"
+            id="newTotalSulfurDioxide"
+            placeholder="Total SO2"
+          />
+          <input type="text" id="newDensity" placeholder="Density" />
+          <input type="text" id="newPh" placeholder="pH" />
+          <input type="text" id="newSulphates" placeholder="Sulphates" />
+          <input type="text" id="newAlcohol" placeholder="Alcohol" />
+
+          <button type="submit" id="create-button" class="evaluate-button">
+            Avaliar
+          </button>
+        </form>
+      </dialog>
+
+      <!-- Modal Resultado -->
+      <dialog id="result-modal" class="modal-content">
+        <button class="close-button" onclick='closeModal("result")'>
+          &times;
+        </button>
+        <h2>Qualidade do vinho</h2>
+        <p id="quality-result" style="margin-top: 20px; font-size: 18px"></p>
+      </dialog>
     </div>
 
     <script src="scripts.js"></script>
