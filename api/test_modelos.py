@@ -1,4 +1,6 @@
 from model import *
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # To run: pytest -v test_modelos.py
 
@@ -10,76 +12,44 @@ pipeline = Pipeline()
 
 # Parâmetros    
 url_dados = "./MachineLearning/data/test_database_wine.csv"
-colunas = ['fixed_acidity','volatile_acidity','citric_acid','residual_sugar','chlorides','free_sulfur_dioxide','total_sulfur_dioxide','density','pH','sulphates','alcohol','quality']
+colunas = ['fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar',
+           'chlorides', 'free_sulfur_dioxide', 'total_sulfur_dioxide',
+           'density', 'pH', 'sulphates', 'alcohol', 'quality']
 
 # Carga dos dados
 dataset = carregador.carregar_dados(url_dados, colunas)
 array = dataset.values
-X = array[:,0:-1]
-y = array[:,-1]
+X = array[:, :-1]
+y = array[:, -1]
 
-# Método para testar o modelo de SVM a partir do arquivo correspondente
-# O nome do método de teste necessita começar com "test_"
-def test_modelo_svm():
-    # Importando o modelo de SVM
-    svm_path = './MachineLearning/models/svm_wine_model.pkl'
-    modelo_svm = modelo.carrega_modelo(svm_path)
+# Separação dos dados para validação justa
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # Obtendo as métricas do SVM
-    acuracia_svm = avaliador.avaliar(modelo_svm, X, y)
-
-    # Testando as métricas do SVM
-    assert acuracia_svm >= 0.35  # ajuste o limiar de acordo com seu requisito
-    # assert recall_svm >= 0.5
-    # assert precisao_svm >= 0.5
-    # assert f1_svm >= 0.5
-
-# # Método para testar o modelo de Regressão Logística a partir do arquivo correspondente
-# # O nome do método a ser testado necessita começar com "test_"
-# def test_modelo_lr():  
-#     # Importando o modelo de regressão logística
-#     lr_path = './MachineLearning/models/diabetes_lr.pkl'
-#     modelo_lr = modelo.carrega_modelo(lr_path)
-
-#     # Obtendo as métricas da Regressão Logística
-#     acuracia_lr = avaliador.avaliar(modelo_lr, X, y)
+def test_modelo_bag():
+    # Caminho do modelo
+    model_path = './MachineLearning/models/bag_wine_model.pkl'
     
-#     # Testando as métricas da Regressão Logística 
-#     # Modifique as métricas de acordo com seus requisitos
-#     assert acuracia_lr >= 0.78 
-#     # assert recall_lr >= 0.5 
-#     # assert precisao_lr >= 0.5 
-#     # assert f1_lr >= 0.5 
+    # Carrega o modelo treinado
+    modelo_bag = modelo.carrega_modelo(model_path)
 
-# # Método para testar modelo KNN a partir do arquivo correspondente
-# def test_modelo_knn():
-#     # Importando modelo de KNN
-#     knn_path = './MachineLearning/models/diabetes_knn.pkl'
-#     modelo_knn = modelo.carrega_modelo(knn_path)
+    # Predição nos dados de teste
+    y_pred = modelo_bag.predict(X_test)
 
-#     # Obtendo as métricas do KNN
-#     acuracia_knn = avaliador.avaliar(modelo_knn, X, y)
-    
-#     # Testando as métricas do KNN
-#     # Modifique as métricas de acordo com seus requisitos
-#     assert acuracia_knn >= 0.78
-#     # assert recall_knn >= 0.5 
-#     # assert precisao_knn >= 0.5 
-#     # assert f1_knn >= 0.5 
+    # Cálculo das métricas
+    acc = accuracy_score(y_test, y_pred)
+    prec = precision_score(y_test, y_pred, average='weighted', zero_division=0)
+    rec = recall_score(y_test, y_pred, average='weighted', zero_division=0)
+    f1 = f1_score(y_test, y_pred, average='weighted', zero_division=0)
 
-# # Método para testar pipeline Random Forest a partir do arquivo correspondente
-# def test_modelo_rf():
-#     # Importando pipeline de Random Forest
-#     rf_path = './MachineLearning/pipelines/rf_diabetes_pipeline.pkl'
-#     modelo_rf = pipeline.carrega_pipeline(rf_path)
+    # Impressão das métricas em caso de falha
+    if acc < 0.4 or prec < 0.3 or rec < 0.4:
+        print("\n---- Avaliação do modelo Bagging ----")
+        print(f"Acurácia: {acc:.3f}")
+        print(f"Precisão: {prec:.3f}")
+        print(f"Recall: {rec:.3f}")
+        print("--------------------------------------")
 
-#     # Obtendo as métricas do Random Forest
-#     acuracia_rf = avaliador.avaliar(modelo_rf, X, y)
-    
-#     # Testando as métricas do Random Forest
-#     # Modifique as métricas de acordo com seus requisitos
-#     assert acuracia_rf >= 0.78
-#     # assert recall_rf >= 0.5 
-#     # assert precisao_rf >= 0.5 
-#     # assert f1_rf >= 0.5
-    
+    # Asserts com limiares ajustáveis
+    assert acc >= 0.4
+    assert prec >= 0.3
+    assert rec >= 0.4

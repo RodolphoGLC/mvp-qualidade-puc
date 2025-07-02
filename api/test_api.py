@@ -62,6 +62,7 @@ def test_add_wine(client, sample_wine_data):
 
     if response.status_code != 200:
         print("Status:", response.status_code)
+        print("Vinho", sample_wine_data)
         print("Resposta do servidor:", response.data.decode())
 
     assert response.status_code == 200

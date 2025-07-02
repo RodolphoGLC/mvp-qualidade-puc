@@ -6,7 +6,7 @@ class VinhoSchema(BaseModel):
     """ Define como um novo vinho a ser inserido deve ser representado """
     fixed_acidity: float = Field(..., example=7.4)
     volatile_acidity: float = Field(..., example=0.7)
-    citric_acid: float = Field(..., example=0.0)
+    citric_acid: float = Field(..., example=0.01)
     residual_sugar: float = Field(..., example=1.9)
     chlorides: float = Field(..., example=0.076)
     free_sulfur_dioxide: float = Field(..., example=11.0)

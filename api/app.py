@@ -76,7 +76,6 @@ def add_vinho(form: VinhoSchema):
     # Realizando predição de quality
     quality = int(modelo.predict(X_input)[0])
 
-    print(form)
     # Criando o objeto Vinho
     vinho = Vinho(
         fixed_acidity=form.fixed_acidity,
