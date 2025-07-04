@@ -3,9 +3,7 @@ from model.vinho import Vinho
 from schemas import apresenta_vinhos, apresenta_vinhos
 
 from flask_openapi3 import OpenAPI, Info, Tag
-from flask import redirect, jsonify
-
-from sqlalchemy.exc import IntegrityError
+from flask import redirect
 
 from model import *
 from logger import logger

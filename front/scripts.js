@@ -318,29 +318,6 @@ const insertList = (
   removeElement();
 };
 
-//Testes locais mais simples
-
-function getRandom(min, max) {
-  return (Math.random() * (max - min) + min).toFixed(3);
-}
-
-function fillTestData() {
-  document.getElementById("newFixedAcidity").value = getRandom(4.6, 15.9);
-  document.getElementById("newVolatileAcidity").value = getRandom(0.12, 1.58);
-  document.getElementById("newCitricAcid").value = getRandom(0.0, 1.0);
-  document.getElementById("newResidualSugar").value = getRandom(0.9, 15.5);
-  document.getElementById("newChlorides").value = getRandom(0.012, 0.611);
-  document.getElementById("newFreeSulfurDioxide").value = getRandom(1.0, 72.0);
-  document.getElementById("newTotalSulfurDioxide").value = getRandom(
-    6.0,
-    289.0
-  );
-  document.getElementById("newDensity").value = getRandom(0.98711, 1.03898);
-  document.getElementById("newPh").value = getRandom(2.74, 4.01);
-  document.getElementById("newSulphates").value = getRandom(0.33, 2.0);
-  document.getElementById("newAlcohol").value = getRandom(8.0, 14.9);
-}
-
 //Colocar categoria da qualidade
 
 const judgeQuality = (quality) => {

@@ -31,29 +31,55 @@ Eu desenvolvi uma aplicação para fazer a avaliação do vinho vermelho, a part
 
 1. Clonar o repositorio no seu computador
 
-2. Vá para a pasta da API no terminal
+2. Vá para a pasta da API (no terminal)
 ```
     cd .\api\
 ```
 
-3. Baixar o venv no projeto e iniciar ele (siga o passo a passo a baixo) no terminal
+3. Baixar o venv no projeto (no terminal)
 ```
     python -m venv venv
 ```
+
+4. Ative o venv (no terminal)
 
 ```
     .\venv\Scripts\activate
 ```
 
-3. Instale as bibliotecas (se já intalou, pode pular esse passo) no terminal
+5. Instale as bibliotecas (se já intalou, pode pular esse passo) (no terminal)
 ```
     pip install -r requirements.txt
 ```
 
-4. Agora rode a aplicação usando o comando abaixo no terminal
+6. Agora rode a aplicação usando o comando abaixo (no terminal)
 ```
     flask run --host 0.0.0.0 --port 5000
 ```
+
+OBS: PARA RODAR DEPOIS SÓ PRECISARÁ DO PASSO 1, 2, 4, 6
+
+---
+
+## 🛠️ Execução dos testes
+
+1. Vá para a pasta da API (no terminal)
+```
+    cd .\api\
+```
+
+2. Ative o venv (no terminal)
+
+```
+    .\venv\Scripts\activate
+```
+
+3. Rode o teste (no terminal)
+```
+    pytest -s test_modelos.py
+```
+
+---
 
 ## Notebook
 
@@ -61,12 +87,18 @@ api\MachineLearning\notebooks
 
 Foi onde desenvolvi o medelo que fiz para a disciplina
 
+---
+
 ## Vídeo de apresentação
 
 🔗 [https://youtu.be/Jhz5dJTStig]
 
+---
+
 ## 👨‍💻 Autor
 
 Desenvolvido por Rodolpho Coutinho
+
 🔗 [https://www.linkedin.com/in/rodolpho-coutinho-a7b1a4229/]
+
 📫 rodolpho.coutinho@outlook.com.br
