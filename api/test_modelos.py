@@ -1,11 +1,9 @@
 from model import *
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-
-# To run: pytest -v test_modelos.py
+from sklearn.metrics import classification_report
 
 # Instanciação das Classes
 carregador = Carregador()
+preprocessador = PreProcessadorVinho()
 modelo = Model()
 avaliador = Avaliador()
 pipeline = Pipeline()
@@ -18,38 +16,35 @@ colunas = ['fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar',
 
 # Carga dos dados
 dataset = carregador.carregar_dados(url_dados, colunas)
-array = dataset.values
-X = array[:, :-1]
-y = array[:, -1]
 
-# Separação dos dados para validação justa
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Separação dos dados
+X_train, X_test, y_train, y_test = preprocessador.separa_teste_treino(dataset, 0.20)
+
+# Normalização com scaler treinado
+X_test_scaled = preprocessador.scaler(X_test)
 
 def test_modelo_bag():
-    # Caminho do modelo
+    # Caminho do modelo treinado
     model_path = './MachineLearning/models/bag_wine_model.pkl'
     
-    # Carrega o modelo treinado
+    # Carrega o modelo
     modelo_bag = modelo.carrega_modelo(model_path)
 
-    # Predição nos dados de teste
-    y_pred = modelo_bag.predict(X_test)
+    # Avalia o modelo com métricas completas
+    resultados = avaliador.avaliar(modelo_bag, X_test_scaled, y_test)
 
-    # Cálculo das métricas
-    acc = accuracy_score(y_test, y_pred)
-    prec = precision_score(y_test, y_pred, average='weighted', zero_division=0)
-    rec = recall_score(y_test, y_pred, average='weighted', zero_division=0)
-    f1 = f1_score(y_test, y_pred, average='weighted', zero_division=0)
-
-    # Impressão das métricas em caso de falha
-    if acc < 0.4 or prec < 0.3 or rec < 0.4:
+    if resultados['accuracy'] > 0.7:
         print("\n---- Avaliação do modelo Bagging ----")
-        print(f"Acurácia: {acc:.3f}")
-        print(f"Precisão: {prec:.3f}")
-        print(f"Recall: {rec:.3f}")
+        print(f"Acurácia:  {resultados['accuracy']:.3f}")
+        print(f"Precisão:  {resultados['precision']:.3f}")
+        print(f"Recall:    {resultados['recall']:.3f}")
+        print(f"F1-score:  {resultados['f1']:.3f}")
         print("--------------------------------------")
 
-    # Asserts com limiares ajustáveis
-    assert acc >= 0.4
-    assert prec >= 0.3
-    assert rec >= 0.4
+        # print(classification_report(y_test, resultados['y_pred']))
+
+    # Asserts opcionais
+    assert resultados["accuracy"] >= 0.7
+    assert resultados["precision"] >= 0.3
+    assert resultados["recall"] >= 0.3
+    assert resultados["f1"] >= 0.3
