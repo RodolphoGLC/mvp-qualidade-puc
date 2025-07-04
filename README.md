@@ -61,6 +61,10 @@ api\MachineLearning\notebooks
 
 Foi onde desenvolvi o medelo que fiz para a disciplina
 
+## Vídeo de apresentação
+
+🔗 [https://youtu.be/Jhz5dJTStig]
+
 ## 👨‍💻 Autor
 
 Desenvolvido por Rodolpho Coutinho
